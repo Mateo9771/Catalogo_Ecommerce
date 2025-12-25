@@ -1,0 +1,181 @@
+/* src/components/AdminLogin/AdminLogin.css — VERSIÓN FINAL ULTRA PREMIUM */
+.login-container {
+  min-height: 100vh;
+  min-height: 100dvh; /* Soporte perfecto en móviles con barra de navegación */
+  background: linear-gradient(135deg, #050407 0%, #1a0d0b 50%, #0f0608 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto sutil de partículas de fondo (opcional pero queda brutal) */
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(255, 78, 42, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 78, 42, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.login-card {
+  background: white;
+  padding: 3.5rem 3rem;
+  border-radius: 32px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 78, 42, 0.1);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  animation: floatIn 0.8s ease-out forwards;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Barra superior roja fuego */
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, #ff4e2a, #ff6b3d, #ff8a50);
+  border-radius: 32px 32px 0 0;
+}
+
+.login-card h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #050407;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.5px;
+}
+
+.login-card p {
+  color: #b8ada9;
+  margin: 0 0 2.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-top: 1rem;
+}
+
+.login-form > div {
+  text-align: left;
+}
+
+.login-form label {
+  display: block;
+  font-weight: 600;
+  color: #050407;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 1.1rem 1.4rem;
+  border: 2px solid #e5e5e5;
+  border-radius: 16px;
+  font-size: 1.05rem;
+  background: #f8f7f6;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #ff4e2a;
+  background: white;
+  box-shadow: 0 0 0 5px rgba(255, 78, 42, 0.18);
+  transform: translateY(-2px);
+}
+
+.login-form button {
+  background: linear-gradient(135deg, #ff4e2a, #e6451f);
+  color: white;
+  padding: 1.2rem;
+  border: none;
+  border-radius: 16px;
+  font-weight: 800;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 30px rgba(255, 78, 42, 0.3);
+}
+
+.login-form button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e6451f, #cc3d1a);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(255, 78, 42, 0.4);
+}
+
+.login-form button:disabled {
+  background: #b8ada9;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.error-msg {
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  color: #991b1b;
+  padding: 1rem 1.2rem;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid #fca5a5;
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Animaciones */
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+/* Responsive perfecto */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 2.5rem 2rem;
+    border-radius: 24px;
+    max-width: 380px;
+  }
+  
+  .login-card h2 {
+    font-size: 2rem;
+  }
+  
+  .login-form input,
+  .login-form button {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}

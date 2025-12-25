@@ -1,0 +1,102 @@
+/* AdminDashboard.css */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f8f7f6;
+  font-family: 'Inter', sans-serif;
+}
+
+.dashboard-sidebar {
+  width: 260px;
+  background: #050407;
+  color: white;
+  padding: 2rem 1.5rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.dashboard-sidebar h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, #ff4e2a, #ff8a50);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dashboard-sidebar ul {
+  list-style: none;
+}
+
+.dashboard-sidebar li {
+  padding: 1rem 1.2rem;
+  margin: 0.5rem 0;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dashboard-sidebar li:hover {
+  background: rgba(255, 78, 42, 0.2);
+}
+
+.dashboard-sidebar li.active {
+  background: #ff4e2a;
+  box-shadow: 0 8px 20px rgba(255, 78, 42, 0.3);
+}
+
+.dashboard-main {
+  flex: 1;
+  padding: 2.5rem;
+  background: #f8f7f6;
+}
+
+.dashboard-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #050407;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.dashboard-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 80px;
+  height: 5px;
+  background: #ff4e2a;
+  border-radius: 3px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .dashboard-container { flex-direction: column; }
+  .dashboard-sidebar {
+    width: 100%;
+    height: auto;
+    padding: 1.5rem;
+    position: relative;
+  }
+  .dashboard-sidebar ul {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+  }
+  .dashboard-sidebar li {
+    white-space: nowrap;
+    min-width: 160px;
+  }
+}

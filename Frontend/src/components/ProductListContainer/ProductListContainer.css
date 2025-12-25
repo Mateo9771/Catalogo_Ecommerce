@@ -1,0 +1,25 @@
+/* src/components/ProductListContainer/ProductListContainer.css */
+.product-list-container {
+  padding: 6rem 1rem;
+  background: #f8f7f6;
+}
+
+.product-list-container h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-align: center;
+  color: #050407;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.product-list-container h1::after {
+  content: '';
+  width: 140px;
+  height: 7px;
+  background: #ff4e2a;
+  display: block;
+  margin: 1.5rem auto 0;
+  border-radius: 4px;
+}

@@ -1,0 +1,164 @@
+/* ===== NAVBAR PREMIUM 2025 ===== */
+.navbar {
+  background: #050407;
+  padding: 1.2rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.container-navbar {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Logo / Catálogo */
+.catalogo-navbar {
+  font-family: 'Orbitron', 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.8rem;
+  color: white;
+  text-decoration: none;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #ff4e2a, #ff8a50);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.4s ease;
+}
+
+.catalogo-navbar:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* Enlaces normales */
+.links-navbar {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.nav-link {
+  color: #f8f7f6;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: #ff4e2a;
+  border-radius: 2px;
+  transition: all 0.4s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover {
+  color: #ff4e2a;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Botón Logout */
+.logout-btn {
+  background: transparent;
+  border: 2px solid #ff4e2a;
+  color: #ff4e2a;
+  padding: 0.7rem 1.6rem;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.logout-btn:hover {
+  background: #ff4e2a;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 78, 42, 0.4);
+}
+
+/* ===== HAMBURGER MENU (MÓVIL) ===== */
+@media (max-width: 992px) {
+  .links-navbar {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: #050407;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 7rem 2rem 2rem;
+    gap: 2rem;
+    transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .links-navbar.open {
+    right: 0;
+  }
+
+  .nav-link {
+    font-size: 1.4rem;
+    width: 100%;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+
+  .logout-btn {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+}
+
+/* Overlay oscuro cuando el menú está abierto */
+body.menu-open::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 4, 7, 0.85);
+  z-index: 998;
+  backdrop-filter: blur(8px);
+}
+
+/* ===== RESPONSIVE FINO ===== */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .catalogo-navbar {
+    font-size: 1.6rem;
+  }
+
+  .container-navbar {
+    padding: 0 0.5rem;
+  }
+}

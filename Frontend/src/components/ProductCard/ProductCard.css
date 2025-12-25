@@ -1,0 +1,177 @@
+.product-card {
+  background: white;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 30px 70px rgba(255, 78, 42, 0.2);
+  border: 1px solid rgba(255, 78, 42, 0.3);
+}
+
+.product-image-container {
+  height: 300px;
+  background: #f8f7f6;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-img {
+  transform: scale(1.08);
+}
+
+.product-content {
+  flex: 1;
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #050407;
+  margin: 0 0 0.8rem;
+  line-height: 1.3;
+}
+
+.product-description {
+  color: #b8ada9;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.product-price {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ff4e2a;
+  margin: 0.5rem 0;
+}
+
+.product-stock {
+  color: #331714;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.product-actions {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+/* Responsive - Tablet (2-3 cards) */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .product-card {
+    min-height: 400px;
+  }
+  
+  .product-image-container {
+    height: 200px;
+  }
+  
+  .product-content {
+    padding: 1rem;
+  }
+  
+  .product-title {
+    font-size: 1rem;
+  }
+  
+  .product-description {
+    font-size: 0.875rem;
+    -webkit-line-clamp: 2;
+  }
+  
+  .product-price {
+    font-size: 1.25rem;
+  }
+}
+
+/* Responsive - Mobile grande (2 cards) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .product-card {
+    min-height: 380px;
+  }
+  
+  .product-image-container {
+    height: 180px;
+    padding: 1rem 0.5rem;
+  }
+  
+  .product-img {
+    padding: 1rem;
+  }
+  
+  .product-content {
+    padding: 0.875rem;
+    gap: 0.5rem;
+  }
+  
+  .product-title {
+    font-size: 0.975rem;
+  }
+  
+  .product-description {
+    font-size: 0.8125rem;
+    -webkit-line-clamp: 2;
+  }
+  
+  .product-price {
+    font-size: 1.125rem;
+  }
+}
+
+/* Responsive - Mobile pequeño (1 card) */
+@media (max-width: 575px) {
+  .product-card {
+    min-height: 360px;
+    border-radius: 8px;
+  }
+  
+  .product-image-container {
+    height: 160px;
+  }
+  
+  .product-content {
+    padding: 0.75rem;
+    gap: 0.5rem;
+  }
+  
+  .product-title {
+    font-size: 0.9375rem;
+    -webkit-line-clamp: 1;
+  }
+  
+  .product-description {
+    font-size: 0.8125rem;
+    -webkit-line-clamp: 2;
+    display: none; /* Ocultar en mobile muy pequeño para espacio */
+  }
+  
+  .product-price {
+    font-size: 1.125rem;
+  }
+  
+  .product-actions {
+    padding-top: 0.75rem;
+  }
+}

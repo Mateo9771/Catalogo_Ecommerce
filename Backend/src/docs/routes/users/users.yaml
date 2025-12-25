@@ -1,0 +1,372 @@
+openapi: 3.0.0
+info:
+  title: Catálogo Web API - Usuarios
+  version: 1.0.0
+  description: Documentación de los endpoints de usuarios para la API del catálogo web
+servers:
+  - url: http://localhost:5000
+    description: Servidor local
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID del usuario
+          example: 507f1f77bcf86cd799439011
+        username:
+          type: string
+          description: Nombre de usuario
+          example: usuario123
+        email:
+          type: string
+          description: Correo electrónico del usuario
+          example: usuario@ejemplo.com
+        role:
+          type: string
+          description: Rol del usuario
+          example: admin
+      required:
+        - id
+        - username
+        - email
+        - role
+    UserInput:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Nombre de usuario
+          example: nuevo_usuario
+        email:
+          type: string
+          description: Correo electrónico del usuario
+          example: nuevo@ejemplo.com
+        password:
+          type: string
+          description: Contraseña del usuario
+          example: contraseña123
+        role:
+          type: string
+          description: Rol del usuario (opcional, por defecto admin)
+          example: admin
+      required:
+        - username
+        - email
+        - password
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Mensaje de error
+          example: Error al obtener usuarios
+paths:
+  /api/users:
+    get:
+      summary: Obtener todos los usuarios
+      description: Devuelve una lista de todos los usuarios. Requiere autenticación y rol de administrador.
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              example:
+                - id: 507f1f77bcf86cd799439011
+                  username: admin123
+                  email: admin@ejemplo.com
+                  role: admin
+                - id: 507f1f77bcf86cd799439012
+                  username: usuario123
+                  email: usuario@ejemplo.com
+                  role: admin
+        '401':
+          description: No autenticado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: No autenticado
+        '403':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: No autorizado
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Error al obtener usuarios
+    post:
+      summary: Crear un nuevo usuario
+      description: Crea un nuevo usuario. Requiere autenticación y rol de administrador.
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+            example:
+              username: nuevo_usuario
+              email: nuevo@ejemplo.com
+              password: contraseña123
+              role: admin
+      responses:
+        '201':
+          description: Usuario creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                id: 507f1f77bcf86cd799439013
+                username: nuevo_usuario
+                email: nuevo@ejemplo.com
+                role: admin
+        '400':
+          description: Email o nombre de usuario ya registrado o datos inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: El email ya está registrado
+        '401':
+          description: No autenticado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: No autenticado
+        '403':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: No autorizado
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Error al crear usuario
+  /api/users/{id}:
+    get:
+      summary: Obtener un usuario por ID
+      description: Devuelve los detalles de un usuario específico. Requiere autenticación y rol de administrador.
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID del usuario
+          example: 507f1f77bcf86cd799439011
+      responses:
+        '200':
+          description: Detalles del usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                id: 507f1f77bcf86cd799439011
+                username: admin123
+                email: admin@ejemplo.com
+                role: admin
+        '404':
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Usuario no encontrado
+        '401':
+          description: No autenticado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: No autenticado
+        '403':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: No autorizado
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Error al obtener usuario
+    put:
+      summary: Actualizar un usuario
+      description: Actualiza los detalles de un usuario existente. Requiere autenticación y rol de administrador.
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID del usuario
+          example: 507f1f77bcf86cd799439011
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+            example:
+              username: usuario_actualizado
+              email: actualizado@ejemplo.com
+              password: nueva_contraseña
+              role: admin
+      responses:
+        '200':
+          description: Usuario actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                id: 507f1f77bcf86cd799439011
+                username: usuario_actualizado
+                email: actualizado@ejemplo.com
+                role: admin
+        '404':
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Usuario no encontrado
+        '401':
+          description: No autenticado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: No autenticado
+        '403':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: No autorizado
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Error al actualizar usuario
+    delete:
+      summary: Eliminar un usuario
+      description: Elimina un usuario existente. Requiere autenticación y rol de administrador.
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID del usuario
+          example: 507f1f77bcf86cd799439011
+      responses:
+        '200':
+          description: Usuario eliminado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de confirmación
+              example:
+                message: Usuario eliminado
+        '404':
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Usuario no encontrado
+        '401':
+          description: No autenticado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: No autenticado
+        '403':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: No autorizado
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Error al eliminar usuario

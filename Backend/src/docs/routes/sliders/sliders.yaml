@@ -1,0 +1,309 @@
+openapi: 3.0.0
+info:
+  title: Catálogo MERN API - Sliders
+  version: 1.0.0
+  description: Documentación de los endpoints para la gestión de sliders en la API del catálogo MERN
+servers:
+  - url: http://localhost:5000
+    description: Servidor local
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: JwtCookieToken
+  schemas:
+    Slider:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "68eae6824fc877ff9e017d34"
+          description: ID del slider (ObjectId de MongoDB)
+        title:
+          type: string
+          example: "Oferta de Verano"
+          description: Título del slider
+        description:
+          type: string
+          example: "¡Aprovecha nuestras mejores ofertas en ropa de verano!"
+          description: Descripción del slider
+        imageUrl:
+          type: string
+          example: "/uploads/1634567890123.jpg"
+          description: URL de la imagen del slider
+      required:
+        - title
+        - description
+        - imageUrl
+    SliderCreate:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Oferta de Verano"
+        description:
+          type: string
+          example: "¡Aprovecha nuestras mejores ofertas!"
+        image:
+          type: string
+          format: binary
+          description: Archivo de imagen del slider
+      required:
+        - title
+        - description
+    SliderUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Oferta de Invierno"
+        description:
+          type: string
+          example: "¡Nuevas ofertas para el invierno!"
+        image:
+          type: string
+          format: binary
+          description: Nuevo archivo de imagen (opcional)
+paths:
+  /api/sliders:
+    get:
+      summary: Obtener todos los sliders
+      tags:
+        - Sliders
+      responses:
+        '200':
+          description: Lista de sliders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Slider'
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error al obtener sliders"
+    post:
+      summary: Crear un nuevo slider
+      tags:
+        - Sliders
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SliderCreate'
+      responses:
+        '201':
+          description: Slider creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Slider'
+        '401':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Unauthorized: Usuario no autenticado"
+        '403':
+          description: Rol insuficiente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Forbidden: Rol insuficiente"
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error al crear slider"
+  /api/sliders/{id}:
+    get:
+      summary: Obtener un slider por ID
+      tags:
+        - Sliders
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID del slider (ObjectId de MongoDB)
+      responses:
+        '200':
+          description: Detalles del slider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Slider'
+        '404':
+          description: Slider no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Slider no encontrado"
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error al obtener slider"
+    put:
+      summary: Actualizar un slider por ID
+      tags:
+        - Sliders
+      security:
+        - cookieAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID del slider (ObjectId de MongoDB)
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SliderUpdate'
+      responses:
+        '200':
+          description: Slider actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Slider'
+        '401':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Unauthorized: Usuario no autenticado"
+        '403':
+          description: Rol insuficiente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Forbidden: Rol insuficiente"
+        '404':
+          description: Slider no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Slider no encontrado"
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error al actualizar slider"
+    delete:
+      summary: Eliminar un slider por ID
+      tags:
+        - Sliders
+      security:
+        - cookieAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID del slider (ObjectId de MongoDB)
+      responses:
+        '200':
+          description: Slider eliminado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Slider eliminado"
+        '401':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Unauthorized: Usuario no autenticado"
+        '403':
+          description: Rol insuficiente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Forbidden: Rol insuficiente"
+        '404':
+          description: Slider no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Slider no encontrado"
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error al eliminar slider"

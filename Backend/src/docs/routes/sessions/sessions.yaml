@@ -1,0 +1,301 @@
+openapi: 3.0.0
+info:
+  title: Catálogo Web API - Sesiones
+  version: 1.0.0
+  description: Documentación de los endpoints de sesiones para la API del catálogo web
+servers:
+  - url: http://localhost:3000
+    description: Servidor local
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    RegisterInput:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Nombre de usuario
+          example: usuario123
+        email:
+          type: string
+          description: Correo electrónico del usuario
+          example: usuario@ejemplo.com
+        password:
+          type: string
+          description: Contraseña del usuario (mínimo 8 caracteres, con mayúscula, minúscula, número y un carácter especial como @$!%*?&). Letras Unicode como ñ son permitidas.
+          example: Contraseña123!
+      required:
+        - username
+        - email
+        - password
+    LoginInput:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Correo electrónico del usuario
+          example: usuario@ejemplo.com
+        password:
+          type: string
+          description: Contraseña del usuario
+          example: Contraseña123!
+      required:
+        - email
+        - password
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID del usuario
+          example: 507f1f77bcf86cd799439011
+        username:
+          type: string
+          description: Nombre de usuario
+          example: usuario123
+        email:
+          type: string
+          description: Correo electrónico del usuario
+          example: usuario@ejemplo.com
+        role:
+          type: string
+          description: Rol del usuario
+          example: admin
+      required:
+        - id
+        - username
+        - email
+        - role
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Token JWT generado
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        role:
+          type: string
+          description: Rol del usuario
+          example: admin
+      required:
+        - token
+        - role
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Mensaje de confirmación
+          example: Sesión cerrada correctamente
+      required:
+        - message
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Mensaje de error
+          example: Error en el registro
+        status:
+          type: string
+          description: Estado del error (opcional)
+          example: error
+        error:
+          type: string
+          description: Detalle del error (opcional)
+          example: Credenciales inválidas
+paths:
+  /api/sessions/register:
+    post:
+      summary: Registrar un nuevo usuario
+      description: Crea un nuevo usuario con username, email y contraseña. La contraseña debe tener al menos 8 caracteres, con una mayúscula, una minúscula, un número y un carácter especial (@$!%*?&). Letras Unicode como ñ son permitidas. No requiere autenticación previa.
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterInput'
+            example:
+              username: usuario123
+              email: usuario@ejemplo.com
+              password: Contraseña123!
+      responses:
+        '201':
+          description: Usuario registrado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Usuario registrado correctamente
+        '400':
+          description: Error en los datos proporcionados
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                missingFields:
+                  summary: Faltan campos obligatorios
+                  value:
+                    message: Todos los campos son obligatorios
+                userExists:
+                  summary: El usuario ya existe
+                  value:
+                    message: El usuario ya existe
+                usernameExists:
+                  summary: El nombre de usuario ya existe
+                  value:
+                    message: El nombre de usuario ya existe
+                invalidPassword:
+                  summary: Contraseña inválida
+                  value:
+                    message: La contraseña debe tener al menos 8 caracteres, incluyendo una letra mayúscula, una letra minúscula, un número y un carácter especial (@$!%*?&).
+                invalidData:
+                  summary: Datos de usuario inválidos
+                  value:
+                    message: Faltan campos obligatorios
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: Error en el registro
+  /api/sessions/failregister:
+    get:
+      summary: Fallo en el registro
+      description: Maneja errores en el proceso de registro. No requiere autenticación previa.
+      tags:
+        - Sessions
+      responses:
+        '401':
+          description: Error al procesar el registro
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Error al procesar registro
+  /api/sessions/login:
+    post:
+      summary: Iniciar sesión
+      description: Autentica a un usuario con su email y contraseña, devuelve un token JWT y lo establece en una cookie (JwtCookieToken). No requiere autenticación previa.
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginInput'
+            example:
+              email: usuario@ejemplo.com
+              password: Contraseña123!
+      responses:
+        '200':
+          description: Login exitoso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+              example:
+                token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                role: admin
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: JwtCookieToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...; HttpOnly; Secure; SameSite=Lax
+              description: Cookie con el token JWT
+        '401':
+          description: Credenciales inválidas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                userNotFound:
+                  summary: Usuario no encontrado
+                  value:
+                    message: Usuario no encontrado
+                invalidCredentials:
+                  summary: Credenciales inválidas
+                  value:
+                    status: error
+                    error: Credenciales inválidas
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: error
+                error: Error interno del servidor
+  /api/sessions/logout:
+    post:
+      summary: Cerrar sesión
+      description: Cierra la sesión del usuario eliminando la cookie JwtCookieToken. No requiere autenticación previa.
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: Sesión cerrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Sesión cerrada correctamente
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: Error al cerrar sesión
+  /api/sessions/current:
+    get:
+      summary: Obtener usuario actual
+      description: Devuelve los detalles del usuario autenticado basado en el token JWT. Requiere autenticación.
+      tags:
+        - Sessions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Detalles del usuario actual
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+              example:
+                id: 507f1f77bcf86cd799439011
+                username: usuario123
+                email: usuario@ejemplo.com
+                role: admin
+        '401':
+          description: No autenticado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: No autenticado
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: Error interno del servidor

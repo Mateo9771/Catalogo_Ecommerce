@@ -1,0 +1,82 @@
+/* src/components/AdminButtons/AdminButtons.css */
+.create-btn, .save-btn, .edit-btn, .delete-btn, .cancel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.create-btn { background: #10b981; color: white; }
+.create-btn:hover { background: #059669; }
+
+.save-btn { background: #3b82f6; color: white; }
+.save-btn:hover { background: #2563eb; }
+
+.edit-btn { background: #fbbf24; color: #000; }
+.edit-btn:hover { background: #f59e0b; }
+
+.delete-btn { background: #ef4444; color: white; }
+.delete-btn:hover { background: #dc2626; }
+
+.cancel-btn { background: #6b7280; color: white; }
+.cancel-btn:hover { background: #4b5563; }
+
+.stock-btn {
+  width: 36px; height: 36px;
+  border: 2px solid #333;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stock-btn.add { border-color: #10b981; color: #10b981; }
+.stock-btn.remove { border-color: #ef4444; color: #ef4444; }
+
+.action-buttons-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Modal Delete */
+.confirm-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.confirm-modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modal-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.confirm-delete {
+  background: #ef4444; color: white; padding: 10px 20px; border: none; border-radius: 8px;
+}
+
+.cancel-delete {
+  background: #e5e7eb; color: #374151; padding: 10px 20px; border: none; border-radius: 8px;
+}

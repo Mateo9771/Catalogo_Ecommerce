@@ -1,0 +1,340 @@
+/* ===== ORDERS PANEL — DISEÑO PREMIUM Y 100% RESPONSIVE ===== */
+.orders-panel {
+  padding: 2rem 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+  background: #f8f7f6;
+  min-height: 100vh;
+}
+
+/* Título principal */
+.orders-panel > h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  text-align: center;
+  color: #050407;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.orders-panel > h2::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(90deg, #ff4e2a, #ff8a50);
+  border-radius: 4px;
+}
+
+/* ===== FILTROS ===== */
+.filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.filters button {
+  padding: 0.8rem 1.8rem;
+  background: white;
+  color: #050407;
+  border: 2px solid #050407;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.filters button:hover {
+  background: #050407;
+  color: white;
+  transform: translateY(-3px);
+}
+
+.filters button.active {
+  background: #ff4e2a;
+  color: white;
+  border-color: #ff4e2a;
+  box-shadow: 0 8px 25px rgba(255, 78, 42, 0.3);
+}
+
+/* ===== TABLA RESPONSIVE ===== */
+.orders-table {
+  overflow-x: auto;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  background: white;
+  margin-bottom: 2rem;
+}
+
+.orders-table table {
+  width: 100%;
+  min-width: 800px; /* evita colapso en móvil */
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.orders-table th {
+  background: #050407;
+  color: white;
+  padding: 1.4rem 1rem;
+  text-align: left;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.orders-table td {
+  padding: 1.3rem 1rem;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.orders-table tr:hover {
+  background: #fff8f5;
+}
+
+.orders-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Estado del pedido */
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  color: white;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  min-width: 90px;
+  text-align: center;
+}
+
+/* Botones de acción */
+.confirm-btn,
+.cancel-btn-small {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.confirm-btn {
+  background: #10b981;
+  color: white;
+}
+
+.confirm-btn:hover {
+  background: #059669;
+  transform: scale(1.05);
+}
+
+.cancel-btn-small {
+  background: #ef4444;
+  color: white;
+}
+
+.cancel-btn-small:hover {
+  background: #dc2626;
+  background: #dc2626;
+  transform: scale(1.05);
+}
+
+/* Texto "ver detalle" */
+td button[text-blue-600] {
+  color: #ff4e2a !important;
+  font-weight: 600;
+}
+
+/* ===== MODAL DETALLE DEL PEDIDO ===== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 4, 7, 0.9);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 28px;
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.modal-content h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  color: #050407;
+  margin-bottom: 1.5rem;
+}
+
+.modal-content p {
+  margin: 0.8rem 0;
+  font-size: 1.05rem;
+}
+
+.modal-content strong {
+  color: #050407;
+  font-weight: 700;
+}
+
+.order-items {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem;
+  background: #f8f7f6;
+  border-radius: 16px;
+  transition: all 0.3s;
+}
+
+.order-item:hover {
+  background: #fff0ed;
+  transform: translateX(8px);
+}
+
+.order-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.order-item div strong {
+  font-size: 1.1rem;
+  color: #050407;
+}
+
+.total-final {
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  color: #ff4e2a;
+  margin: 2rem 0 1.5rem;
+  padding: 1rem;
+  background: #fff8f5;
+  border-radius: 16px;
+}
+
+.close-modal {
+  display: block;
+  margin: 0 auto;
+  background: #050407;
+  color: white;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.close-modal:hover {
+  background: #ff4e2a;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(255, 78, 42, 0.4);
+}
+
+/* ===== RESPONSIVE PERFECTO ===== */
+@media (max-width: 992px) {
+  .orders-table {
+    border-radius: 16px;
+  }
+  
+  .orders-table th,
+  .orders-table td {
+    padding: 1rem 0.8rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .orders-panel > h2 {
+    font-size: 2rem;
+  }
+  
+  .filters {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  
+  .filters button {
+    white-space: nowrap;
+    font-size: 0.95rem;
+    padding: 0.7rem 1.5rem;
+  }
+  
+  .modal-content {
+    padding: 2rem;
+    border-radius: 20px;
+  }
+  
+  .order-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .order-item img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .orders-panel {
+    padding: 1rem 0.5rem;
+  }
+  
+  .orders-table th,
+  .orders-table td {
+    padding: 0.8rem 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .confirm-btn,
+  .cancel-btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .total-final {
+    font-size: 1.7rem;
+  }
+}

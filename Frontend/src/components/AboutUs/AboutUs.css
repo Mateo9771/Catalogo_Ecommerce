@@ -1,0 +1,50 @@
+/* src/components/AboutUs/AboutUs.css */
+.about-container {
+  padding: 8rem 1rem;
+  background: linear-gradient(135deg, #f8f7f6 0%, #e8e4e0 100%);
+  text-align: center;
+}
+
+.about-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  padding: 4rem 3rem;
+  border-radius: 32px;
+  box-shadow: 0 30px 80px rgba(5, 4, 7, 0.12);
+  border: 1px solid rgba(255, 78, 42, 0.15);
+}
+
+.about-card h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #050407;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.about-card h2::after {
+  content: '';
+  width: 120px;
+  height: 6px;
+  background: #ff4e2a;
+  display: block;
+  margin: 1.5rem auto 0;
+  border-radius: 3px;
+}
+
+.about-card p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.35rem;
+  line-height: 1.8;
+  color: #331714;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .about-card { padding: 3rem 2rem; border-radius: 24px; }
+  .about-card h2 { font-size: 2.8rem; }
+  .about-card p { font-size: 1.2rem; }
+}
