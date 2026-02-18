@@ -1,38 +1,10 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import AdminPanel from "../../components/AdminPanel/AdminPanel";
 import OrdersPanel from "../../components/OrdersPanel/OrdersPanel";
 import "./AdminDashboard.css";
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
-  const [validToken, setValidToken] = useState(false);
   const [activeTab, setActiveTab] = useState("products"); // pestaña activa
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/admin"); // redirigir si no hay token
-    } else {
-      setTimeout(() => {
-        if (token === "mock-token-12345") {
-          setValidToken(true);
-        } else {
-          localStorage.removeItem("token");
-          navigate("/admin");
-        }
-      }, 800);
-    }
-  }, [navigate]);
-
-  if (!validToken) {
-    return (
-      <div className="dashboard-loading">
-        <div className="spinner"></div>
-        <p>Verificando acceso...</p>
-      </div>
-    );
-  }
 
   return (
       <div className="dashboard-container">

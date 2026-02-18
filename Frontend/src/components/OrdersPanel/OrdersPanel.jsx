@@ -114,7 +114,7 @@ const confirmOrder = async (id) => {
                     {order.items.length} producto{order.items.length > 1 ? "s" : ""}
                     <button
                       onClick={() => setSelectedOrder(order)}
-                      className="text-blue-600 text-sm ml-2 underline"
+                      className="detail-button text-blue-600 text-sm ml-2 underline"
                     >
                       ver detalle
                     </button>

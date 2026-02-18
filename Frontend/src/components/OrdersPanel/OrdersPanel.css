@@ -122,6 +122,12 @@
   text-align: center;
 }
 
+.detail-button{
+  background-color:#e5ebb4;
+  border-radius: 10px;
+  padding: 0.1rem 0.1rem;
+  margin: 2px;
+}
 /* Botones de acción */
 .confirm-btn,
 .cancel-btn-small {
